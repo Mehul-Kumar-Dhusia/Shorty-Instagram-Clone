@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import BottomNavbar from './BottomNavbar.js';
+import Header from './Header.js' ;
+import Post from './Post.js' ;
+import Story from './Story.js' ;
+import StoryData from './StoryData.js';
+import PostData from './PostData.js';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id= "app">
+        <Header />
+        <div className="story-container">
+          {StoryData.map((data) =>{
+            if(data.personName.length > 7){
+              return(
+                <Story 
+                  personImage = {data.personImage} 
+                  personName = {data.personName.substring(0,7) + "..."} 
+                  // personClass = "text-left"
+                />
+              )
+            }
+            else{
+              return(
+                <Story 
+                  personImage = {data.personImage} 
+                  personName = {data.personName} 
+                />
+              )
+            }
+            
+          })}
+        </div>
+        <div className="post-container">
+          {PostData.map((data) =>{
+            return(
+              <Post 
+                personImage = {data.personImage}
+                personName = {data.personName}
+                postImage = {data.postImage}
+                likesCount = {data.likesCount}
+                caption = {data.caption}
+              />
+            )
+          })}
+        </div>
+        <BottomNavbar />
     </div>
-  );
+  )
 }
-
+ 
 export default App;
